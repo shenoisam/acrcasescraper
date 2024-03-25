@@ -1,0 +1,5 @@
+chromedriver_mac64/*
+venv/*
+chromedriver
+.DS_Score
+acrcasesdata.csv
