@@ -29,10 +29,10 @@ time.sleep(1.5)
 
 
 # Im cheating and using a magic number...
-MAX_PAGE = 39
 
+MAX_PAGE = 100
 current_page = 1
-while(current_page < MAX_PAGE):
+while(current_page < 100):
     # Get the data from the table
     odds = driver.find_elements(By.CLASS_NAME, "odd")
     evens =  driver.find_elements(By.CLASS_NAME, "even")
@@ -67,11 +67,15 @@ while(current_page < MAX_PAGE):
         driver.switch_to.window(p)
 
         out.write(f"{hx}\t{question}\n")
+
     current_page = current_page + 1
     wrap = driver.find_element(By.ID,"tblActivity_wrapper")
-    wrap.find_element(By.XPATH,f"// a[contains(),\'{current_page}']").click()
-    break
+    for elem in wrap.find_elements(By.CLASS_NAME, "paginate_button "):
+        if elem.text == str(current_page):
+            elem.click()
+            break
 
+    time.sleep(1.5)
 out.close()
 
 #time.sleep(4)
